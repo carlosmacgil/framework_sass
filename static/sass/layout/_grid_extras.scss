@@ -1,0 +1,31 @@
+@use '../base/variables' as vars;
+@use '../base/gutter' as gutter;
+@use '../base/config' as *;
+
+$columns: 12;
+
+@if $generate-responsive-classes {
+  @each $breakpoint, $width in vars.$breakpoints {
+    @media (min-width: #{$width}) {
+      @for $i from 1 through $columns {
+        .col-#{$breakpoint}-#{$i} {
+          flex: 0 0 calc(100% / $columns * $i);
+          max-width: calc(100% / $columns * $i);
+        }
+      }
+    }
+  }
+
+  @each $breakpoint, $width in vars.$breakpoints {
+    @media (min-width: #{$width}) {
+      @each $index, $size in gutter.$gutters {
+        .gx-#{$breakpoint}-#{$index} {
+          --gutter-x: #{$size};
+        }
+        .gy-#{$breakpoint}-#{$index} {
+          --gutter-y: #{$size};
+        }
+      }
+    }
+  }
+}

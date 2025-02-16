@@ -1,0 +1,28 @@
+@use 'sass:list';
+@use 'config' as *;
+
+$font-sizes: (
+  1: 0.875rem,
+  2: 1rem,
+  3: 1.25rem,
+  4: 1.5rem,
+  5: 2rem,
+);
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+@if $generate-responsive-classes {
+  @each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+      @each $index, $size in $font-sizes {
+        .fs-#{$breakpoint}-#{$index} {
+          font-size: $size;
+        }
+      }
+    }
+  }
+}
